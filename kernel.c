@@ -11,6 +11,16 @@ void shutdown() {
   while (1);
 }
 
+void network_init(){
+  buffer_start=0;
+  buffer_end=0;
+
+  for(int i=0;i<16;i++){
+    
+  } 
+
+
+}
 
 /* Trap handling.
  *
