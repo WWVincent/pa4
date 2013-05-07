@@ -12,7 +12,7 @@ void network_init(){
         if (bootparams->devtable[i].type == DEV_TYPE_NETWORK){
             puts("Detected network device...");
             dev_net = physical_to_virtual(bootparams->devtable[i].start);
-                        // also allow keyboard interrupts
+            // also allow keyboard interrupts
             set_cpu_status(current_cpu_status() | (1 << (8+INTR_NETWORK)));
             puts("...network driver is ready.");
             
@@ -41,13 +41,24 @@ void network_start_receive(){
 // If opt != 0, enables interrupts when a new packet arrives.
 // If opt == 0, disables interrupts.
 void network_set_interrupts(int opt){
-    dev_net.cmd = NET_SET_INTERRUPTS;
+    if (opt !=0){
+        dev_net.cmd = NET_SET_INTERRUPTS;
+        dev_net.data = 1;
+    }
+    else {
+        dev_net.cmd = NET_SET_INTERRUPTS;
+        dev_net.data = 0;
+    }
 }
 
 // Continually polls for data on the ring buffer. Loops forever!
 void network_poll(){
     
+    
 }
 
 // Called when a network interrupt occurs.
-void network_trap();
+void network_trap(){
+    //This function (or any function of your choice, really, depending on how you modify kernel.c) gets called in response to a network interrupt. Presumably, you handle a packet in here.
+    
+}
